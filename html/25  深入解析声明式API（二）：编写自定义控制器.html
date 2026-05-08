@@ -113,10 +113,27 @@
 .article { max-width: 780px; margin: 0 auto; padding: 24px 24px 60px; }
 .main, .main-app { width: 100% !important; margin-left: 0 !important; padding-left: 0 !important; }
 img { max-width: 100%; height: auto; }
+html, body { background: #1a1a2e !important; color: #d4d4d4 !important; }
+* { color: inherit !important; }
+.article, .main, .main-app { background: #1a1a2e !important; }
+h1, h2, h3, h4, h5, h6 { color: #e2e8f0 !important; }
+a { color: #63b3ed !important; }
+a:hover { color: #90cdf4 !important; }
+p, li, td, th, blockquote { color: #d4d4d4 !important; }
+strong, b { color: #e2e8f0 !important; }
+code, pre { background: #2d2d3f !important; color: #a8d8a8 !important; border-radius: 4px; padding: 2px 6px; }
+pre { padding: 12px 16px !important; }
+blockquote { border-left: 3px solid #4a5568 !important; background: #252538 !important; padding: 8px 16px !important; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #3a3a5c !important; padding: 8px 12px !important; }
+th { background: #252538 !important; }
+tr:nth-child(even) { background: #20203a !important; }
+.article-info, .article-info span { color: #718096 !important; }
+.article-title { color: #e2e8f0 !important; }
 </style>
 </head><body><div id="MathJax_Message" style="display: none;"></div><div id="app"><div data-v-87ffcada="" class="article"><!----> <div data-v-87ffcada="" class="main main-app" style="margin-top: 0px;"> <h1 data-v-87ffcada="" class="article-title">
         25 | 深入解析声明式API（二）：编写自定义控制器
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2018-10-19</span> <span data-v-87ffcada="">张磊</span></div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/f18f1ddfda2b48a435792acc3d447371.jpg"> <!----> <div data-v-87ffcada="" class="mini-audio-player"><a href="javascript:;" class="btn-play"></a> <div class="audio-info"><h3>25 | 深入解析声明式API（二）：编写自定义控制器</h3> <p><span>朗读人：张磊&nbsp;&nbsp;&nbsp;</span> <span>17′50′′ | 8.17M</span></p></div> <!----> <audio title="25 | 深入解析声明式API（二）：编写自定义控制器" src="https://res001.geekbang.org/resource/audio/d6/17/d67edba5c9541e954c18dfbaadbbfc17.mp3" controls="controls"></audio></div> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：深入解析声明式 API 之编写自定义控制器。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2018-10-19</span> <span data-v-87ffcada="">张磊</span></div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/f18f1ddfda2b48a435792acc3d447371.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/d6/17/d67edba5c9541e954c18dfbaadbbfc17.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：深入解析声明式 API 之编写自定义控制器。</p>
 <p>在上一篇文章中，我和你详细分享了 Kubernetes 中声明式 API 的实现原理，并且通过一个添加 Network 对象的实例，为你讲述了在 Kubernetes 里添加 API 资源的过程。</p>
 <p>在今天的这篇文章中，我就继续和你一起完成剩下一半的工作，即：为 Network 这个自定义 API 对象编写一个自定义控制器（Custom Controller）。</p>
 <p>正如我在上一篇文章结尾处提到的，“声明式 API”并不像“命令式 API”那样有着明显的执行逻辑。这就使得<strong>基于声明式 API 的业务功能实现，往往需要通过控制器模式来“监视”API 对象的变化（比如，创建或者删除 Network），然后以此来决定实际要执行的具体工作。</strong></p>

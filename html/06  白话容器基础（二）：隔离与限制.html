@@ -113,10 +113,27 @@
 .article { max-width: 780px; margin: 0 auto; padding: 24px 24px 60px; }
 .main, .main-app { width: 100% !important; margin-left: 0 !important; padding-left: 0 !important; }
 img { max-width: 100%; height: auto; }
+html, body { background: #1a1a2e !important; color: #d4d4d4 !important; }
+* { color: inherit !important; }
+.article, .main, .main-app { background: #1a1a2e !important; }
+h1, h2, h3, h4, h5, h6 { color: #e2e8f0 !important; }
+a { color: #63b3ed !important; }
+a:hover { color: #90cdf4 !important; }
+p, li, td, th, blockquote { color: #d4d4d4 !important; }
+strong, b { color: #e2e8f0 !important; }
+code, pre { background: #2d2d3f !important; color: #a8d8a8 !important; border-radius: 4px; padding: 2px 6px; }
+pre { padding: 12px 16px !important; }
+blockquote { border-left: 3px solid #4a5568 !important; background: #252538 !important; padding: 8px 16px !important; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #3a3a5c !important; padding: 8px 12px !important; }
+th { background: #252538 !important; }
+tr:nth-child(even) { background: #20203a !important; }
+.article-info, .article-info span { color: #718096 !important; }
+.article-title { color: #e2e8f0 !important; }
 </style>
 </head><body><div id="MathJax_Message" style="display: none;"></div><div id="app"><div data-v-87ffcada="" class="article"><!----> <div data-v-87ffcada="" class="main main-app" style="margin-top: 0px;"> <h1 data-v-87ffcada="" class="article-title">
         06 | 白话容器基础（二）：隔离与限制
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2018-09-05</span> <span data-v-87ffcada="">张磊</span></div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/00d828ee3e8c3f66ddeb687aa3d6894f.jpg"> <!----> <div data-v-87ffcada="" class="mini-audio-player"><a href="javascript:;" class="btn-play"></a> <div class="audio-info"><h3>06 | 白话容器基础（二）：隔离与限制</h3> <p><span>朗读人：张磊&nbsp;&nbsp;&nbsp;</span> <span>16′36′′ | 7.61M</span></p></div> <!----> <audio title="06 | 白话容器基础（二）：隔离与限制" src="https://res001.geekbang.org/resource/audio/6e/67/6e9fa7ea0cb73d690a7c2fb70c026167.mp3" controls="controls"></audio></div> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。我今天和你分享的主题是：白话容器基础之隔离与限制。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2018-09-05</span> <span data-v-87ffcada="">张磊</span></div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/00d828ee3e8c3f66ddeb687aa3d6894f.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/6e/67/6e9fa7ea0cb73d690a7c2fb70c026167.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。我今天和你分享的主题是：白话容器基础之隔离与限制。</p>
 <p>在上一篇文章中，我详细介绍了 Linux 容器中用来实现“隔离”的技术手段：Namespace。而通过这些讲解，你应该能够明白，<strong>Namespace 技术实际上修改了应用进程看待整个计算机“视图”，即它的“视线”被操作系统做了限制，只能“看到”某些指定的内容</strong>。但对于宿主机来说，这些被“隔离”了的进程跟其他进程并没有太大区别。</p>
 <p>说到这一点，相信你也能够知道我在上一篇文章最后给你留下的第一个思考题的答案了：在之前虚拟机与容器技术的对比图里，不应该把 Docker Engine 或者任何容器管理工具放在跟 Hypervisor 相同的位置，因为它们并不像 Hypervisor 那样对应用进程的隔离环境负责，也不会创建任何实体的“容器”，真正对隔离环境负责的是宿主机操作系统本身：</p>
 <p><img src="images/768a51756e97f08a15a9c2010964a67c.jpg" alt=""></p>

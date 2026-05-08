@@ -113,10 +113,27 @@
 .article { max-width: 780px; margin: 0 auto; padding: 24px 24px 60px; }
 .main, .main-app { width: 100% !important; margin-left: 0 !important; padding-left: 0 !important; }
 img { max-width: 100%; height: auto; }
+html, body { background: #1a1a2e !important; color: #d4d4d4 !important; }
+* { color: inherit !important; }
+.article, .main, .main-app { background: #1a1a2e !important; }
+h1, h2, h3, h4, h5, h6 { color: #e2e8f0 !important; }
+a { color: #63b3ed !important; }
+a:hover { color: #90cdf4 !important; }
+p, li, td, th, blockquote { color: #d4d4d4 !important; }
+strong, b { color: #e2e8f0 !important; }
+code, pre { background: #2d2d3f !important; color: #a8d8a8 !important; border-radius: 4px; padding: 2px 6px; }
+pre { padding: 12px 16px !important; }
+blockquote { border-left: 3px solid #4a5568 !important; background: #252538 !important; padding: 8px 16px !important; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #3a3a5c !important; padding: 8px 12px !important; }
+th { background: #252538 !important; }
+tr:nth-child(even) { background: #20203a !important; }
+.article-info, .article-info span { color: #718096 !important; }
+.article-title { color: #e2e8f0 !important; }
 </style>
 </head><body><div id="MathJax_Message" style="display: none;"></div><div id="app"><div data-v-87ffcada="" class="article"><!----> <div data-v-87ffcada="" class="main main-app" style="margin-top: 0px;"> <h1 data-v-87ffcada="" class="article-title">
         23 | 声明式API与Kubernetes编程范式
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2018-10-15</span> <span data-v-87ffcada="">张磊</span></div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/5d355f552bb59e9720062711a6ea8c56.jpg"> <!----> <div data-v-87ffcada="" class="mini-audio-player"><a href="javascript:;" class="btn-play"></a> <div class="audio-info"><h3>23 | 声明式API与Kubernetes编程范式</h3> <p><span>朗读人：张磊&nbsp;&nbsp;&nbsp;</span> <span>16′43′′ | 7.66M</span></p></div> <!----> <audio title="23 | 声明式API与Kubernetes编程范式" src="https://res001.geekbang.org/resource/audio/0b/d9/0b697c5bde2f28826ddfc0ebf386b2d9.mp3" controls="controls"></audio></div> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：声明式 API 与 Kubernetes 编程范式。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2018-10-15</span> <span data-v-87ffcada="">张磊</span></div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/5d355f552bb59e9720062711a6ea8c56.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/0b/d9/0b697c5bde2f28826ddfc0ebf386b2d9.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：声明式 API 与 Kubernetes 编程范式。</p>
 <p>在前面的几篇文章中，我和你分享了很多 Kubernetes 的 API 对象。这些 API 对象，有的是用来描述应用，有的则是为应用提供各种各样的服务。但是，无一例外地，为了使用这些 API 对象提供的能力，你都需要编写一个对应的 YAML 文件交给 Kubernetes。</p>
 <p>这个 YAML 文件，正是 Kubernetes 声明式 API 所必须具备的一个要素。不过，是不是只要用 YAML 文件代替了命令行操作，就是声明式 API 了呢？</p>
 <p>举个例子。我们知道，Docker Swarm 的编排操作都是基于命令行的，比如：</p>

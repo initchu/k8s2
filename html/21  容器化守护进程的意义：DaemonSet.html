@@ -113,10 +113,27 @@
 .article { max-width: 780px; margin: 0 auto; padding: 24px 24px 60px; }
 .main, .main-app { width: 100% !important; margin-left: 0 !important; padding-left: 0 !important; }
 img { max-width: 100%; height: auto; }
+html, body { background: #1a1a2e !important; color: #d4d4d4 !important; }
+* { color: inherit !important; }
+.article, .main, .main-app { background: #1a1a2e !important; }
+h1, h2, h3, h4, h5, h6 { color: #e2e8f0 !important; }
+a { color: #63b3ed !important; }
+a:hover { color: #90cdf4 !important; }
+p, li, td, th, blockquote { color: #d4d4d4 !important; }
+strong, b { color: #e2e8f0 !important; }
+code, pre { background: #2d2d3f !important; color: #a8d8a8 !important; border-radius: 4px; padding: 2px 6px; }
+pre { padding: 12px 16px !important; }
+blockquote { border-left: 3px solid #4a5568 !important; background: #252538 !important; padding: 8px 16px !important; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #3a3a5c !important; padding: 8px 12px !important; }
+th { background: #252538 !important; }
+tr:nth-child(even) { background: #20203a !important; }
+.article-info, .article-info span { color: #718096 !important; }
+.article-title { color: #e2e8f0 !important; }
 </style>
 </head><body><div id="MathJax_Message" style="display: none;"></div><div id="app"><div data-v-87ffcada="" class="article"><!----> <div data-v-87ffcada="" class="main main-app" style="margin-top: 0px;"><!----> <h1 data-v-87ffcada="" class="article-title">
         21 | 容器化守护进程的意义：DaemonSet
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2018-10-10</span> <span data-v-87ffcada="">张磊</span></div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/fca156dcb1d9f179ef8deae19daa225a.jpg"> <!----> <div data-v-87ffcada="" class="mini-audio-player"><a href="javascript:;" class="btn-play"></a> <div class="audio-info"><h3>21 | 容器化守护进程的意义：DaemonSet</h3> <p><span>朗读人：张磊&nbsp;&nbsp;&nbsp;</span> <span>17′27′′ | 8.00M</span></p></div> <!----> <audio title="21 | 容器化守护进程的意义：DaemonSet" src="https://res001.geekbang.org/resource/audio/59/18/593cf97eb297671d472238e41d05f218.mp3" controls="controls"></audio></div> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：容器化守护进程的意义之 DaemonSet。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2018-10-10</span> <span data-v-87ffcada="">张磊</span></div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/fca156dcb1d9f179ef8deae19daa225a.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/59/18/593cf97eb297671d472238e41d05f218.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：容器化守护进程的意义之 DaemonSet。</p>
 <p>在上一篇文章中，我和你详细分享了使用 StatefulSet 编排“有状态应用”的过程。从中不难看出，StatefulSet 其实就是对现有典型运维业务的容器化抽象。也就是说，你一定有方法在不使用 Kubernetes、甚至不使用容器的情况下，自己 DIY 一个类似的方案出来。但是，一旦涉及到升级、版本管理等更工程化的能力，Kubernetes 的好处，才会更加凸现。</p>
 <p>比如，如何对 StatefulSet 进行“滚动更新”（rolling update）？</p>
 <p>很简单。你只要修改 StatefulSet 的 Pod 模板，就会自动触发“滚动更新”:</p>

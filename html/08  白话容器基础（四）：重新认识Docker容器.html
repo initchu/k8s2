@@ -113,10 +113,27 @@
 .article { max-width: 780px; margin: 0 auto; padding: 24px 24px 60px; }
 .main, .main-app { width: 100% !important; margin-left: 0 !important; padding-left: 0 !important; }
 img { max-width: 100%; height: auto; }
+html, body { background: #1a1a2e !important; color: #d4d4d4 !important; }
+* { color: inherit !important; }
+.article, .main, .main-app { background: #1a1a2e !important; }
+h1, h2, h3, h4, h5, h6 { color: #e2e8f0 !important; }
+a { color: #63b3ed !important; }
+a:hover { color: #90cdf4 !important; }
+p, li, td, th, blockquote { color: #d4d4d4 !important; }
+strong, b { color: #e2e8f0 !important; }
+code, pre { background: #2d2d3f !important; color: #a8d8a8 !important; border-radius: 4px; padding: 2px 6px; }
+pre { padding: 12px 16px !important; }
+blockquote { border-left: 3px solid #4a5568 !important; background: #252538 !important; padding: 8px 16px !important; }
+table { border-collapse: collapse; width: 100%; }
+th, td { border: 1px solid #3a3a5c !important; padding: 8px 12px !important; }
+th { background: #252538 !important; }
+tr:nth-child(even) { background: #20203a !important; }
+.article-info, .article-info span { color: #718096 !important; }
+.article-title { color: #e2e8f0 !important; }
 </style>
 </head><body><div id="MathJax_Message" style="display: none;"></div><div id="app"><div data-v-87ffcada="" class="article"><!----> <div data-v-87ffcada="" class="main main-app" style="margin-top: 0px;"> <h1 data-v-87ffcada="" class="article-title">
         08 | 白话容器基础（四）：重新认识Docker容器
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2018-09-10</span> <span data-v-87ffcada="">张磊</span></div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/ada1d76f6e1773f20b0ac9cec01d2ad6.jpg"> <!----> <div data-v-87ffcada="" class="mini-audio-player"><a href="javascript:;" class="btn-play"></a> <div class="audio-info"><h3>08 | 白话容器基础（四）：重新认识Docker容器</h3> <p><span>朗读人：张磊&nbsp;&nbsp;&nbsp;</span> <span>23′01′′ | 9.23M</span></p></div> <!----> <audio title="08 | 白话容器基础（四）：重新认识Docker容器" src="https://res001.geekbang.org/resource/audio/79/31/79e8421b8d2f88dc0b4733aa635def31.mp3" controls="controls"></audio></div> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：白话容器基础之重新认识 Docker 容器。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2018-09-10</span> <span data-v-87ffcada="">张磊</span></div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/ada1d76f6e1773f20b0ac9cec01d2ad6.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/79/31/79e8421b8d2f88dc0b4733aa635def31.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：白话容器基础之重新认识 Docker 容器。</p>
 <p>在前面的三次分享中，我分别从 Linux Namespace 的隔离能力、Linux Cgroups 的限制能力，以及基于 rootfs 的文件系统三个角度，为你剖析了一个 Linux 容器的核心实现原理。</p>
 <blockquote>
 <p>备注：之所以要强调 Linux 容器，是因为比如 Docker on Mac，以及 Windows Docker（Hyper-V 实现），实际上是基于虚拟化技术实现的，跟我们这个专栏着重介绍的 Linux 容器完全不同。</p>
