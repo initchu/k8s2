@@ -221,7 +221,7 @@ tr:nth-child(even) { background: #fafafa !important; }
 </a>
 <h1 data-v-87ffcada="" class="article-title">
         20 | 深入理解StatefulSet（三）：有状态应用实践
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-10-08</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/99e9c0b9f28eaca7dc3a16956ea32d3b.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/2e/dd/2e127711ab3309ee42f1c47254612add.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：深入理解 StatefulSet 之有状态应用实践。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-10-08</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/99e9c0b9f28eaca7dc3a16956ea32d3b.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/2e/dd/2e127711ab3309ee42f1c47254612add.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是Kevin。今天我和你分享的主题是：深入理解 StatefulSet 之有状态应用实践。</p>
 <p>在前面的两篇文章中，我详细讲解了 StatefulSet 的工作原理，以及处理拓扑状态和存储状态的方法。而在今天这篇文章中，我将通过一个实际的例子，再次为你深入解读一下部署一个 StatefulSet 的完整流程。</p>
 <p>今天我选择的实例是部署一个 MySQL 集群，这也是 Kubernetes 官方文档里的一个经典案例。但是，很多工程师都曾向我吐槽说这个例子“完全看不懂”。</p>
 <p>其实，这样的吐槽也可以理解：相比于 Etcd、Cassandra 等“原生”就考虑了分布式需求的项目，MySQL 以及很多其他的数据库项目，在分布式集群的搭建上并不友好，甚至有点“原始”。</p>

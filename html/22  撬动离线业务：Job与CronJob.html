@@ -126,7 +126,7 @@ tr:nth-child(even) { background: #fafafa !important; }
 </a>
 <h1 data-v-87ffcada="" class="article-title">
         22 | 撬动离线业务：Job与CronJob
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-10-12</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/6daf8ce956b97e3df94ccef2862b4bfd.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/2c/03/2c649a87c5022c2f5c2a2e0289b1b903.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：撬动离线业务之 Job 与 CronJob。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-10-12</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/6daf8ce956b97e3df94ccef2862b4bfd.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/2c/03/2c649a87c5022c2f5c2a2e0289b1b903.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是Kevin。今天我和你分享的主题是：撬动离线业务之 Job 与 CronJob。</p>
 <p>在前面的几篇文章中，我和你详细分享了 Deployment、StatefulSet，以及 DaemonSet 这三个编排概念。你有没有发现它们的共同之处呢？</p>
 <p>实际上，它们主要编排的对象，都是“在线业务”，即：Long Running Task（长作业）。比如，我在前面举例时常用的 Nginx、Tomcat，以及 MySQL 等等。这些应用一旦运行起来，除非出错或者停止，它的容器进程会一直保持在 Running 状态。</p>
 <p>但是，有一类作业显然不满足这样的条件，这就是“离线业务”，或者叫作 Batch Job（计算业务）。这种业务在计算完成后就直接退出了，而此时如果你依然用 Deployment 来管理这种业务的话，就会发现 Pod 会在计算结束后退出，然后被 Deployment Controller 不断地重启；而像“滚动更新”这样的编排功能，更无从谈起了。</p>

@@ -221,7 +221,7 @@ tr:nth-child(even) { background: #fafafa !important; }
 </a>
 <h1 data-v-87ffcada="" class="article-title">
         18 | 深入理解StatefulSet（一）：拓扑状态
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-10-03</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/75a950856df87ad531101c5283a1951f.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/89/12/896c974f179010713e58ada2f49d7c12.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：深入理解 StatefulSet 之拓扑状态。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-10-03</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/75a950856df87ad531101c5283a1951f.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/89/12/896c974f179010713e58ada2f49d7c12.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是Kevin。今天我和你分享的主题是：深入理解 StatefulSet 之拓扑状态。</p>
 <p>在上一篇文章中，我在结尾处讨论到了 Deployment 实际上并不足以覆盖所有的应用编排问题。</p>
 <p>造成这个问题的根本原因，在于 Deployment 对应用做了一个简单化假设。</p>
 <p>它认为，一个应用的所有 Pod，是完全一样的。所以，它们互相之间没有顺序，也无所谓运行在哪台宿主机上。需要的时候，Deployment 就可以通过 Pod 模板创建新的 Pod；不需要的时候，Deployment 就可以“杀掉”任意一个 Pod。</p>

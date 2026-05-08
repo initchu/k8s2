@@ -221,7 +221,7 @@ tr:nth-child(even) { background: #fafafa !important; }
 </a>
 <h1 data-v-87ffcada="" class="article-title">
         19 | 深入理解StatefulSet（二）：存储状态
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-10-05</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/cb9879fe378fb55ae1d9ab9d4bd77ccc.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/bf/55/bfcecfb762d864ae92406cc8dd988355.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：深入理解 StatefulSet 之存储状态。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-10-05</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/cb9879fe378fb55ae1d9ab9d4bd77ccc.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/bf/55/bfcecfb762d864ae92406cc8dd988355.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是Kevin。今天我和你分享的主题是：深入理解 StatefulSet 之存储状态。</p>
 <p>在上一篇文章中，我和你分享了 StatefulSet 如何保证应用实例的拓扑状态，在 Pod 删除和再创建的过程中保持稳定。</p>
 <p>而在今天这篇文章中，我将继续为你解读 StatefulSet 对存储状态的管理机制。这个机制，主要使用的是<span class="orange">一个叫作 Persistent Volume Claim 的功能。</span></p>
 <p>在前面介绍 Pod 的时候，我曾提到过，要在一个 Pod 里声明 Volume，只要在 Pod 里加上 spec.volumes 字段即可。然后，你就可以在这个字段里定义一个具体类型的 Volume 了，比如：hostPath。</p>

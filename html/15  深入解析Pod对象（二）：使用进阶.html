@@ -221,7 +221,7 @@ tr:nth-child(even) { background: #fafafa !important; }
 </a>
 <h1 data-v-87ffcada="" class="article-title">
         15 | 深入解析Pod对象（二）：使用进阶
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-09-26</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/e6d6ec10239d3dcb1d6dd364c2751a41.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/d2/e1/d2b23a32210eab0d30ed699428da80e1.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：深入解析 Pod 对象之使用进阶。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-09-26</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/e6d6ec10239d3dcb1d6dd364c2751a41.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/d2/e1/d2b23a32210eab0d30ed699428da80e1.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是Kevin。今天我和你分享的主题是：深入解析 Pod 对象之使用进阶。</p>
 <p>在上一篇文章中，我深入解析了 Pod 的 API 对象，讲解了 Pod 和 Container 的关系。</p>
 <p>作为 Kubernetes 项目里最核心的编排对象，Pod 携带的信息非常丰富。其中，资源定义（比如 CPU、内存等），以及调度相关的字段，我会在后面专门讲解调度器时再进行深入的分析。在本篇，我们就先从一种特殊的 Volume 开始，来帮助你更加深入地理解 Pod 对象各个重要字段的含义。</p>
 <p>这种特殊的 Volume，叫作 Projected Volume，你可以把它翻译为“投射数据卷”。</p>

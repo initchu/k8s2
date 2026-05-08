@@ -221,7 +221,7 @@ tr:nth-child(even) { background: #fafafa !important; }
 </a>
 <h1 data-v-87ffcada="" class="article-title">
         14 | 深入解析Pod对象（一）：基本概念
-      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-09-24</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/95b57a9ae79f7ecb26e9460d0748336f.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/40/90/40f7fcf5f97b1f59b70cfbe5ccde9190.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：深入解析 Pod 对象之基本概念。</p>
+      </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-09-24</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/95b57a9ae79f7ecb26e9460d0748336f.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/40/90/40f7fcf5f97b1f59b70cfbe5ccde9190.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是Kevin。今天我和你分享的主题是：深入解析 Pod 对象之基本概念。</p>
 <p>在上一篇文章中，我详细介绍了 Pod 这个 Kubernetes 项目中最重要的概念。而在今天这篇文章中，我会和你分享 Pod 对象的更多细节。</p>
 <p>现在，你已经非常清楚：Pod，而不是容器，才是 Kubernetes 项目中的最小编排单位。将这个设计落实到 API 对象上，容器（Container）就成了 Pod 属性里的一个普通的字段。那么，一个很自然的问题就是：到底哪些属性属于 Pod 对象，而又有哪些属性属于 Container 呢？</p>
 <p>要彻底理解这个问题，你就一定要牢记我在上一篇文章中提到的一个结论：Pod 扮演的是传统部署环境里“虚拟机”的角色。这样的设计，是为了使用户从传统环境（虚拟机环境）向 Kubernetes（容器环境）的迁移，更加平滑。</p>
