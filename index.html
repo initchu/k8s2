@@ -1,126 +1,386 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>深入剖析Kubernetes - 导航页</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background-color: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
-        .navigation-list {
-            list-style-type: none;
-            padding: 0;
-        }
-        .navigation-list li {
-            margin: 10px 0;
-            padding: 10px;
-            border-left: 4px solid #3498db;
-            background-color: #ecf0f1;
-            transition: background-color 0.3s;
-        }
-        .navigation-list li:hover {
-            background-color: #d6eaf8;
-        }
-        .navigation-list a {
-            text-decoration: none;
-            color: #2980b9;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .navigation-list a:hover {
-            color: #c0392b;
-        }
-        .file-number {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            background-color: #3498db;
-            color: white;
-            text-align: center;
-            line-height: 30px;
-            border-radius: 50%;
-            margin-right: 10px;
-            font-weight: bold;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>深入剖析 Kubernetes</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", sans-serif;
+      background: #0f1117;
+      color: #e2e8f0;
+      min-height: 100vh;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 72px 24px 56px;
+      text-align: center;
+      background: linear-gradient(135deg, #0f1117 0%, #1a1f2e 50%, #0f1117 100%);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% -10%, rgba(99,179,237,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 80% 80%, rgba(159,122,234,.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(99,179,237,.4);
+      color: #63b3ed;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.15;
+      background: linear-gradient(135deg, #e2e8f0 30%, #63b3ed 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      color: #718096;
+      font-size: 15px;
+      max-width: 480px;
+      margin: 0 auto 32px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 28px;
+      font-weight: 700;
+      color: #63b3ed;
+      line-height: 1;
+    }
+    .stat-label { font-size: 12px; color: #4a5568; margin-top: 4px; }
+
+    /* ── Search ── */
+    .search-wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 0 24px 40px;
+    }
+    .search-box {
+      position: relative;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 14px 20px 14px 48px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      background: rgba(255,255,255,.05);
+      color: #e2e8f0;
+      font-size: 15px;
+      outline: none;
+      transition: border-color .2s, background .2s;
+    }
+    .search-box input::placeholder { color: #4a5568; }
+    .search-box input:focus {
+      border-color: rgba(99,179,237,.5);
+      background: rgba(255,255,255,.08);
+    }
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4a5568;
+      pointer-events: none;
+    }
+
+    /* ── Main layout ── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ── Section heading ── */
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: #4a5568;
+      margin: 40px 0 16px;
+    }
+    .section-title::after {
+      content: "";
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,.06);
+    }
+    .section-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Card grid ── */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 12px;
+    }
+
+    .card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.06);
+      background: rgba(255,255,255,.03);
+      text-decoration: none;
+      color: inherit;
+      transition: background .2s, border-color .2s, transform .15s;
+      cursor: pointer;
+    }
+    .card:hover {
+      background: rgba(255,255,255,.07);
+      border-color: rgba(99,179,237,.3);
+      transform: translateY(-2px);
+    }
+    .card.hidden { display: none; }
+
+    .card-num {
+      flex-shrink: 0;
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .02em;
+    }
+    .card-title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.45;
+      color: #cbd5e0;
+    }
+    .card:hover .card-title { color: #e2e8f0; }
+
+    /* section color themes */
+    .theme-intro  .card-num { background: rgba(99,179,237,.15);  color: #63b3ed; }
+    .theme-basic  .card-num { background: rgba(72,187,120,.15);  color: #48bb78; }
+    .theme-deploy .card-num { background: rgba(237,137,54,.15);  color: #ed8936; }
+    .theme-workload .card-num { background: rgba(159,122,234,.15); color: #9f7aea; }
+    .theme-api    .card-num { background: rgba(246,173,85,.15);  color: #f6ad55; }
+    .theme-storage .card-num { background: rgba(99,179,237,.15); color: #63b3ed; }
+    .theme-network .card-num { background: rgba(252,129,74,.15); color: #fc814a; }
+    .theme-schedule .card-num { background: rgba(72,187,120,.15); color: #48bb78; }
+    .theme-runtime .card-num { background: rgba(159,122,234,.15); color: #9f7aea; }
+    .theme-ops    .card-num { background: rgba(246,173,85,.15);  color: #f6ad55; }
+    .theme-end    .card-num { background: rgba(99,179,237,.15);  color: #63b3ed; }
+
+    .dot-intro    { background: #63b3ed; }
+    .dot-basic    { background: #48bb78; }
+    .dot-deploy   { background: #ed8936; }
+    .dot-workload { background: #9f7aea; }
+    .dot-api      { background: #f6ad55; }
+    .dot-storage  { background: #63b3ed; }
+    .dot-network  { background: #fc814a; }
+    .dot-schedule { background: #48bb78; }
+    .dot-runtime  { background: #9f7aea; }
+    .dot-ops      { background: #f6ad55; }
+    .dot-end      { background: #63b3ed; }
+
+    /* ── No result ── */
+    .no-result {
+      display: none;
+      text-align: center;
+      padding: 60px 0;
+      color: #4a5568;
+      font-size: 15px;
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(255,255,255,.1); border-radius: 3px; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>深入剖析Kubernetes - 内容导航</h1>
-        <ul class="navigation-list">
-            <li><a href="html/00  开篇词 _ 打通“容器技术”的任督二脉.html"><span class="file-number">00</span>开篇词 _ 打通"容器技术"的任督二脉</a></li>
-            <li><a href="html/01  预习篇 · 小鲸鱼大事记（一）：初出茅庐.html"><span class="file-number">01</span>预习篇 · 小鲸鱼大事记（一）：初出茅庐</a></li>
-            <li><a href="html/02  预习篇 · 小鲸鱼大事记（二）：崭露头角.html"><span class="file-number">02</span>预习篇 · 小鲸鱼大事记（二）：崭露头角</a></li>
-            <li><a href="html/03  预习篇 · 小鲸鱼大事记（三）：群雄并起.html"><span class="file-number">03</span>预习篇 · 小鲸鱼大事记（三）：群雄并起</a></li>
-            <li><a href="html/04  预习篇 · 小鲸鱼大事记（四）：尘埃落定.html"><span class="file-number">04</span>预习篇 · 小鲸鱼大事记（四）：尘埃落定</a></li>
-            <li><a href="html/05  白话容器基础（一）：从进程说开去.html"><span class="file-number">05</span>白话容器基础（一）：从进程说开去</a></li>
-            <li><a href="html/06  白话容器基础（二）：隔离与限制.html"><span class="file-number">06</span>白话容器基础（二）：隔离与限制</a></li>
-            <li><a href="html/07  白话容器基础（三）：深入理解容器镜像.html"><span class="file-number">07</span>白话容器基础（三）：深入理解容器镜像</a></li>
-            <li><a href="html/08  白话容器基础（四）：重新认识Docker容器.html"><span class="file-number">08</span>白话容器基础（四）：重新认识Docker容器</a></li>
-            <li><a href="html/09  从容器到容器云：谈谈Kubernetes的本质.html"><span class="file-number">09</span>从容器到容器云：谈谈Kubernetes的本质</a></li>
-            <li><a href="html/10  Kubernetes一键部署利器：kubeadm.html"><span class="file-number">10</span>Kubernetes一键部署利器：kubeadm</a></li>
-            <li><a href="html/11  从0到1：搭建一个完整的Kubernetes集群.html"><span class="file-number">11</span>从0到1：搭建一个完整的Kubernetes集群</a></li>
-            <li><a href="html/12  牛刀小试：我的第一个容器化应用.html"><span class="file-number">12</span>牛刀小试：我的第一个容器化应用</a></li>
-            <li><a href="html/13  为什么我们需要Pod？.html"><span class="file-number">13</span>为什么我们需要Pod？</a></li>
-            <li><a href="html/14  深入解析Pod对象（一）：基本概念.html"><span class="file-number">14</span>深入解析Pod对象（一）：基本概念</a></li>
-            <li><a href="html/15  深入解析Pod对象（二）：使用进阶.html"><span class="file-number">15</span>深入解析Pod对象（二）：使用进阶</a></li>
-            <li><a href="html/16  编排其实很简单：谈谈“控制器”模型.html"><span class="file-number">16</span>编排其实很简单：谈谈"控制器"模型</a></li>
-            <li><a href="html/17  经典PaaS的记忆：作业副本与水平扩展.html"><span class="file-number">17</span>经典PaaS的记忆：作业副本与水平扩展</a></li>
-            <li><a href="html/18  深入理解StatefulSet（一）：拓扑状态.html"><span class="file-number">18</span>深入理解StatefulSet（一）：拓扑状态</a></li>
-            <li><a href="html/19  深入理解StatefulSet（二）：存储状态.html"><span class="file-number">19</span>深入理解StatefulSet（二）：存储状态</a></li>
-            <li><a href="html/20  深入理解StatefulSet（三）：有状态应用实践.html"><span class="file-number">20</span>深入理解StatefulSet（三）：有状态应用实践</a></li>
-            <li><a href="html/21  容器化守护进程的意义：DaemonSet.html"><span class="file-number">21</span>容器化守护进程的意义：DaemonSet</a></li>
-            <li><a href="html/22  撬动离线业务：Job与CronJob.html"><span class="file-number">22</span>撬动离线业务：Job与CronJob</a></li>
-            <li><a href="html/23  声明式API与Kubernetes编程范式.html"><span class="file-number">23</span>声明式API与Kubernetes编程范式</a></li>
-            <li><a href="html/24  深入解析声明式API（一）：API对象的奥秘.html"><span class="file-number">24</span>深入解析声明式API（一）：API对象的奥秘</a></li>
-            <li><a href="html/25  深入解析声明式API（二）：编写自定义控制器.html"><span class="file-number">25</span>深入解析声明式API（二）：编写自定义控制器</a></li>
-            <li><a href="html/26  基于角色的权限控制：RBAC.html"><span class="file-number">26</span>基于角色的权限控制：RBAC</a></li>
-            <li><a href="html/27  聪明的微创新：Operator工作原理解读.html"><span class="file-number">27</span>聪明的微创新：Operator工作原理解读</a></li>
-            <li><a href="html/28  PV、PVC、StorageClass，这些到底在说啥？.html"><span class="file-number">28</span>PV、PVC、StorageClass，这些到底在说啥？</a></li>
-            <li><a href="html/29  PV、PVC体系是不是多此一举？从本地持久化卷谈起.html"><span class="file-number">29</span>PV、PVC体系是不是多此一举？从本地持久化卷谈起</a></li>
-            <li><a href="html/30  编写自己的存储插件：FlexVolume与CSI.html"><span class="file-number">30</span>编写自己的存储插件：FlexVolume与CSI</a></li>
-            <li><a href="html/31  容器存储实践：CSI插件编写指南.html"><span class="file-number">31</span>容器存储实践：CSI插件编写指南</a></li>
-            <li><a href="html/32  浅谈容器网络.html"><span class="file-number">32</span>浅谈容器网络</a></li>
-            <li><a href="html/33  深入解析容器跨主机网络.html"><span class="file-number">33</span>深入解析容器跨主机网络</a></li>
-            <li><a href="html/34  Kubernetes网络模型与CNI网络插件.html"><span class="file-number">34</span>Kubernetes网络模型与CNI网络插件</a></li>
-            <li><a href="html/35  解读Kubernetes三层网络方案.html"><span class="file-number">35</span>解读Kubernetes三层网络方案</a></li>
-            <li><a href="html/36  为什么说Kubernetes只有soft multi-tenancy？.html"><span class="file-number">36</span>为什么说Kubernetes只有soft multi-tenancy？</a></li>
-            <li><a href="html/37  找到容器不容易：Service、DNS与服务发现.html"><span class="file-number">37</span>找到容器不容易：Service、DNS与服务发现</a></li>
-            <li><a href="html/38  从外界连通Service与Service调试“三板斧”.html"><span class="file-number">38</span>从外界连通Service与Service调试"三板斧"</a></li>
-            <li><a href="html/39  谈谈Service与Ingress.html"><span class="file-number">39</span>谈谈Service与Ingress</a></li>
-            <li><a href="html/40  Kubernetes的资源模型与资源管理.html"><span class="file-number">40</span>Kubernetes的资源模型与资源管理</a></li>
-            <li><a href="html/41  十字路口上的Kubernetes默认调度器.html"><span class="file-number">41</span>十字路口上的Kubernetes默认调度器</a></li>
-            <li><a href="html/42  Kubernetes默认调度器调度策略解析.html"><span class="file-number">42</span>Kubernetes默认调度器调度策略解析</a></li>
-            <li><a href="html/43  Kubernetes默认调度器的优先级与抢占机制.html"><span class="file-number">43</span>Kubernetes默认调度器的优先级与抢占机制</a></li>
-            <li><a href="html/44  Kubernetes GPU管理与Device Plugin机制.html"><span class="file-number">44</span>Kubernetes GPU管理与Device Plugin机制</a></li>
-            <li><a href="html/45  幕后英雄：SIG-Node与CRI.html"><span class="file-number">45</span>幕后英雄：SIG-Node与CRI</a></li>
-            <li><a href="html/46  解读 CRI 与 容器运行时.html"><span class="file-number">46</span>解读 CRI 与 容器运行时</a></li>
-            <li><a href="html/47  绝不仅仅是安全：Kata Containers 与 gVisor.html"><span class="file-number">47</span>绝不仅仅是安全：Kata Containers 与 gVisor</a></li>
-            <li><a href="html/48  Prometheus、Metrics Server与Kubernetes监控体系.html"><span class="file-number">48</span>Prometheus、Metrics Server与Kubernetes监控体系</a></li>
-            <li><a href="html/49  Custom Metrics 让Auto Scaling不再“食之无味”.html"><span class="file-number">49</span>Custom Metrics 让Auto Scaling不再"食之无味"</a></li>
-            <li><a href="html/50  让日志无处可逃：容器日志收集与管理.html"><span class="file-number">50</span>让日志无处可逃：容器日志收集与管理</a></li>
-            <li><a href="html/51  谈谈Kubernetes开源社区和未来走向.html"><span class="file-number">51</span>谈谈Kubernetes开源社区和未来走向</a></li>
-            <li><a href="html/52  答疑：在问题中解决问题，在思考中产生思考.html"><span class="file-number">52</span>答疑：在问题中解决问题，在思考中产生思考</a></li>
-            <li><a href="html/53  结束语  Kubernetes：赢开发者赢天下.html"><span class="file-number">53</span>结束语  Kubernetes：赢开发者赢天下</a></li>
-        </ul>
-    </div>
+
+<!-- Hero -->
+<div class="hero">
+  <div class="hero-badge">极客时间</div>
+  <h1>深入剖析 Kubernetes</h1>
+  <p>从容器基础到集群编排，系统掌握云原生核心技术栈</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">54</div><div class="stat-label">篇文章</div></div>
+    <div class="stat"><div class="stat-num">10</div><div class="stat-label">核心模块</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label">实战价值</div></div>
+  </div>
+</div>
+
+<!-- Search -->
+<div class="search-wrap">
+  <div class="search-box">
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+    <input type="text" id="searchInput" placeholder="搜索文章标题…" autocomplete="off">
+  </div>
+</div>
+
+<!-- Content -->
+<div class="main" id="mainContent">
+
+  <div class="section-title"><span class="section-dot dot-intro"></span>开篇 &amp; 预习</div>
+  <div class="grid theme-intro">
+    <a class="card" href="html/00  开篇词 _ 打通"容器技术"的任督二脉.html"><span class="card-num">00</span><span class="card-title">开篇词 · 打通"容器技术"的任督二脉</span></a>
+    <a class="card" href="html/01  预习篇 · 小鲸鱼大事记（一）：初出茅庐.html"><span class="card-num">01</span><span class="card-title">预习篇 · 小鲸鱼大事记（一）：初出茅庐</span></a>
+    <a class="card" href="html/02  预习篇 · 小鲸鱼大事记（二）：崭露头角.html"><span class="card-num">02</span><span class="card-title">预习篇 · 小鲸鱼大事记（二）：崭露头角</span></a>
+    <a class="card" href="html/03  预习篇 · 小鲸鱼大事记（三）：群雄并起.html"><span class="card-num">03</span><span class="card-title">预习篇 · 小鲸鱼大事记（三）：群雄并起</span></a>
+    <a class="card" href="html/04  预习篇 · 小鲸鱼大事记（四）：尘埃落定.html"><span class="card-num">04</span><span class="card-title">预习篇 · 小鲸鱼大事记（四）：尘埃落定</span></a>
+  </div>
+
+  <div class="section-title"><span class="section-dot dot-basic"></span>容器基础</div>
+  <div class="grid theme-basic">
+    <a class="card" href="html/05  白话容器基础（一）：从进程说开去.html"><span class="card-num">05</span><span class="card-title">白话容器基础（一）：从进程说开去</span></a>
+    <a class="card" href="html/06  白话容器基础（二）：隔离与限制.html"><span class="card-num">06</span><span class="card-title">白话容器基础（二）：隔离与限制</span></a>
+    <a class="card" href="html/07  白话容器基础（三）：深入理解容器镜像.html"><span class="card-num">07</span><span class="card-title">白话容器基础（三）：深入理解容器镜像</span></a>
+    <a class="card" href="html/08  白话容器基础（四）：重新认识Docker容器.html"><span class="card-num">08</span><span class="card-title">白话容器基础（四）：重新认识 Docker 容器</span></a>
+    <a class="card" href="html/09  从容器到容器云：谈谈Kubernetes的本质.html"><span class="card-num">09</span><span class="card-title">从容器到容器云：谈谈 Kubernetes 的本质</span></a>
+  </div>
+
+  <div class="section-title"><span class="section-dot dot-deploy"></span>集群部署</div>
+  <div class="grid theme-deploy">
+    <a class="card" href="html/10  Kubernetes一键部署利器：kubeadm.html"><span class="card-num">10</span><span class="card-title">Kubernetes 一键部署利器：kubeadm</span></a>
+    <a class="card" href="html/11  从0到1：搭建一个完整的Kubernetes集群.html"><span class="card-num">11</span><span class="card-title">从 0 到 1：搭建一个完整的 Kubernetes 集群</span></a>
+    <a class="card" href="html/12  牛刀小试：我的第一个容器化应用.html"><span class="card-num">12</span><span class="card-title">牛刀小试：我的第一个容器化应用</span></a>
+  </div>
+
+  <div class="section-title"><span class="section-dot dot-workload"></span>工作负载编排</div>
+  <div class="grid theme-workload">
+    <a class="card" href="html/13  为什么我们需要Pod？.html"><span class="card-num">13</span><span class="card-title">为什么我们需要 Pod？</span></a>
+    <a class="card" href="html/14  深入解析Pod对象（一）：基本概念.html"><span class="card-num">14</span><span class="card-title">深入解析 Pod 对象（一）：基本概念</span></a>
+    <a class="card" href="html/15  深入解析Pod对象（二）：使用进阶.html"><span class="card-num">15</span><span class="card-title">深入解析 Pod 对象（二）：使用进阶</span></a>
+    <a class="card" href="html/16  编排其实很简单：谈谈"控制器"模型.html"><span class="card-num">16</span><span class="card-title">编排其实很简单：谈谈"控制器"模型</span></a>
+    <a class="card" href="html/17  经典PaaS的记忆：作业副本与水平扩展.html"><span class="card-num">17</span><span class="card-title">经典 PaaS 的记忆：作业副本与水平扩展</span></a>
+    <a class="card" href="html/18  深入理解StatefulSet（一）：拓扑状态.html"><span class="card-num">18</span><span class="card-title">深入理解 StatefulSet（一）：拓扑状态</span></a>
+    <a class="card" href="html/19  深入理解StatefulSet（二）：存储状态.html"><span class="card-num">19</span><span class="card-title">深入理解 StatefulSet（二）：存储状态</span></a>
+    <a class="card" href="html/20  深入理解StatefulSet（三）：有状态应用实践.html"><span class="card-num">20</span><span class="card-title">深入理解 StatefulSet（三）：有状态应用实践</span></a>
+    <a class="card" href="html/21  容器化守护进程的意义：DaemonSet.html"><span class="card-num">21</span><span class="card-title">容器化守护进程的意义：DaemonSet</span></a>
+    <a class="card" href="html/22  撬动离线业务：Job与CronJob.html"><span class="card-num">22</span><span class="card-title">撬动离线业务：Job 与 CronJob</span></a>
+  </div>
+
+  <div class="section-title"><span class="section-dot dot-api"></span>声明式 API 与扩展</div>
+  <div class="grid theme-api">
+    <a class="card" href="html/23  声明式API与Kubernetes编程范式.html"><span class="card-num">23</span><span class="card-title">声明式 API 与 Kubernetes 编程范式</span></a>
+    <a class="card" href="html/24  深入解析声明式API（一）：API对象的奥秘.html"><span class="card-num">24</span><span class="card-title">深入解析声明式 API（一）：API 对象的奥秘</span></a>
+    <a class="card" href="html/25  深入解析声明式API（二）：编写自定义控制器.html"><span class="card-num">25</span><span class="card-title">深入解析声明式 API（二）：编写自定义控制器</span></a>
+    <a class="card" href="html/26  基于角色的权限控制：RBAC.html"><span class="card-num">26</span><span class="card-title">基于角色的权限控制：RBAC</span></a>
+    <a class="card" href="html/27  聪明的微创新：Operator工作原理解读.html"><span class="card-num">27</span><span class="card-title">聪明的微创新：Operator 工作原理解读</span></a>
+  </div>
+
+  <div class="section-title"><span class="section-dot dot-storage"></span>持久化存储</div>
+  <div class="grid theme-storage">
+    <a class="card" href="html/28  PV、PVC、StorageClass，这些到底在说啥？.html"><span class="card-num">28</span><span class="card-title">PV、PVC、StorageClass，这些到底在说啥？</span></a>
+    <a class="card" href="html/29  PV、PVC体系是不是多此一举？从本地持久化卷谈起.html"><span class="card-num">29</span><span class="card-title">PV、PVC 体系是不是多此一举？从本地持久化卷谈起</span></a>
+    <a class="card" href="html/30  编写自己的存储插件：FlexVolume与CSI.html"><span class="card-num">30</span><span class="card-title">编写自己的存储插件：FlexVolume 与 CSI</span></a>
+    <a class="card" href="html/31  容器存储实践：CSI插件编写指南.html"><span class="card-num">31</span><span class="card-title">容器存储实践：CSI 插件编写指南</span></a>
+  </div>
+
+  <div class="section-title"><span class="section-dot dot-network"></span>容器网络</div>
+  <div class="grid theme-network">
+    <a class="card" href="html/32  浅谈容器网络.html"><span class="card-num">32</span><span class="card-title">浅谈容器网络</span></a>
+    <a class="card" href="html/33  深入解析容器跨主机网络.html"><span class="card-num">33</span><span class="card-title">深入解析容器跨主机网络</span></a>
+    <a class="card" href="html/34  Kubernetes网络模型与CNI网络插件.html"><span class="card-num">34</span><span class="card-title">Kubernetes 网络模型与 CNI 网络插件</span></a>
+    <a class="card" href="html/35  解读Kubernetes三层网络方案.html"><span class="card-num">35</span><span class="card-title">解读 Kubernetes 三层网络方案</span></a>
+    <a class="card" href="html/36  为什么说Kubernetes只有soft multi-tenancy？.html"><span class="card-num">36</span><span class="card-title">为什么说 Kubernetes 只有 soft multi-tenancy？</span></a>
+    <a class="card" href="html/37  找到容器不容易：Service、DNS与服务发现.html"><span class="card-num">37</span><span class="card-title">找到容器不容易：Service、DNS 与服务发现</span></a>
+    <a class="card" href="html/38  从外界连通Service与Service调试"三板斧".html"><span class="card-num">38</span><span class="card-title">从外界连通 Service 与 Service 调试"三板斧"</span></a>
+    <a class="card" href="html/39  谈谈Service与Ingress.html"><span class="card-num">39</span><span class="card-title">谈谈 Service 与 Ingress</span></a>
+  </div>
+
+  <div class="section-title"><span class="section-dot dot-schedule"></span>资源调度</div>
+  <div class="grid theme-schedule">
+    <a class="card" href="html/40  Kubernetes的资源模型与资源管理.html"><span class="card-num">40</span><span class="card-title">Kubernetes 的资源模型与资源管理</span></a>
+    <a class="card" href="html/41  十字路口上的Kubernetes默认调度器.html"><span class="card-num">41</span><span class="card-title">十字路口上的 Kubernetes 默认调度器</span></a>
+    <a class="card" href="html/42  Kubernetes默认调度器调度策略解析.html"><span class="card-num">42</span><span class="card-title">Kubernetes 默认调度器调度策略解析</span></a>
+    <a class="card" href="html/43  Kubernetes默认调度器的优先级与抢占机制.html"><span class="card-num">43</span><span class="card-title">Kubernetes 默认调度器的优先级与抢占机制</span></a>
+    <a class="card" href="html/44  Kubernetes GPU管理与Device Plugin机制.html"><span class="card-num">44</span><span class="card-title">Kubernetes GPU 管理与 Device Plugin 机制</span></a>
+  </div>
+
+  <div class="section-title"><span class="section-dot dot-runtime"></span>容器运行时</div>
+  <div class="grid theme-runtime">
+    <a class="card" href="html/45  幕后英雄：SIG-Node与CRI.html"><span class="card-num">45</span><span class="card-title">幕后英雄：SIG-Node 与 CRI</span></a>
+    <a class="card" href="html/46  解读 CRI 与 容器运行时.html"><span class="card-num">46</span><span class="card-title">解读 CRI 与容器运行时</span></a>
+    <a class="card" href="html/47  绝不仅仅是安全：Kata Containers 与 gVisor.html"><span class="card-num">47</span><span class="card-title">绝不仅仅是安全：Kata Containers 与 gVisor</span></a>
+  </div>
+
+  <div class="section-title"><span class="section-dot dot-ops"></span>监控与日志</div>
+  <div class="grid theme-ops">
+    <a class="card" href="html/48  Prometheus、Metrics Server与Kubernetes监控体系.html"><span class="card-num">48</span><span class="card-title">Prometheus、Metrics Server 与 Kubernetes 监控体系</span></a>
+    <a class="card" href="html/49  Custom Metrics 让Auto Scaling不再"食之无味".html"><span class="card-num">49</span><span class="card-title">Custom Metrics 让 Auto Scaling 不再"食之无味"</span></a>
+    <a class="card" href="html/50  让日志无处可逃：容器日志收集与管理.html"><span class="card-num">50</span><span class="card-title">让日志无处可逃：容器日志收集与管理</span></a>
+  </div>
+
+  <div class="section-title"><span class="section-dot dot-end"></span>结语</div>
+  <div class="grid theme-end">
+    <a class="card" href="html/51  谈谈Kubernetes开源社区和未来走向.html"><span class="card-num">51</span><span class="card-title">谈谈 Kubernetes 开源社区和未来走向</span></a>
+    <a class="card" href="html/52  答疑：在问题中解决问题，在思考中产生思考.html"><span class="card-num">52</span><span class="card-title">答疑：在问题中解决问题，在思考中产生思考</span></a>
+    <a class="card" href="html/53  结束语  Kubernetes：赢开发者赢天下.html"><span class="card-num">53</span><span class="card-title">结束语 · Kubernetes：赢开发者赢天下</span></a>
+  </div>
+
+  <div class="no-result" id="noResult">没有找到匹配的文章</div>
+</div>
+
+<script>
+  const input = document.getElementById('searchInput');
+  const noResult = document.getElementById('noResult');
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    const cards = document.querySelectorAll('.card');
+    const sections = document.querySelectorAll('.section-title, .grid');
+    let anyVisible = false;
+
+    cards.forEach(card => {
+      const text = card.textContent.toLowerCase();
+      const match = !q || text.includes(q);
+      card.classList.toggle('hidden', !match);
+      if (match) anyVisible = true;
+    });
+
+    // hide empty section headers
+    document.querySelectorAll('.grid').forEach(grid => {
+      const visible = grid.querySelectorAll('.card:not(.hidden)').length > 0;
+      grid.style.display = visible ? '' : 'none';
+      const prev = grid.previousElementSibling;
+      if (prev && prev.classList.contains('section-title')) {
+        prev.style.display = visible ? '' : 'none';
+      }
+    });
+
+    noResult.style.display = anyVisible ? 'none' : 'block';
+  });
+</script>
 </body>
 </html>
