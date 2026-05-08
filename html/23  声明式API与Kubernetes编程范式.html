@@ -113,6 +113,28 @@
 .article { max-width: 780px; margin: 0 auto; padding: 24px 24px 60px; }
 .main, .main-app { width: 100% !important; margin-left: 0 !important; padding-left: 0 !important; }
 img { max-width: 100%; height: auto; }
+/* ── Home button ── */
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  margin: 20px 0 8px;
+  background: #fff;
+  color: #2b6cb0 !important;
+  border: 1px solid #bee3f8;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: background .2s, box-shadow .2s;
+}
+.home-btn:hover {
+  background: #ebf8ff !important;
+  box-shadow: 0 2px 8px rgba(66,153,225,.15);
+}
+
 /* ── Code block fix ── */
 pre {
   background: #f6f8fa !important;
@@ -193,7 +215,11 @@ tr:nth-child(even) { background: #fafafa !important; }
 .article-info, .article-info span { color: #888 !important; }
 .article-title { color: #1a1a1a !important; }
 </style>
-</head><body><div id="MathJax_Message" style="display: none;"></div><div id="app"><div data-v-87ffcada="" class="article"><!----> <div data-v-87ffcada="" class="main main-app" style="margin-top: 0px;"> <h1 data-v-87ffcada="" class="article-title">
+</head><body><div id="MathJax_Message" style="display: none;"></div><div id="app"><div data-v-87ffcada="" class="article"><!----> <div data-v-87ffcada="" class="main main-app" style="margin-top: 0px;"> <a class="home-btn" href="../index.html">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  返回首页
+</a>
+<h1 data-v-87ffcada="" class="article-title">
         23 | 声明式API与Kubernetes编程范式
       </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-10-15</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/5d355f552bb59e9720062711a6ea8c56.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/0b/d9/0b697c5bde2f28826ddfc0ebf386b2d9.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。今天我和你分享的主题是：声明式 API 与 Kubernetes 编程范式。</p>
 <p>在前面的几篇文章中，我和你分享了很多 Kubernetes 的 API 对象。这些 API 对象，有的是用来描述应用，有的则是为应用提供各种各样的服务。但是，无一例外地，为了使用这些 API 对象提供的能力，你都需要编写一个对应的 YAML 文件交给 Kubernetes。</p>

@@ -18,6 +18,28 @@
 .article { max-width: 780px; margin: 0 auto; padding: 24px 24px 60px; }
 .main, .main-app { width: 100% !important; margin-left: 0 !important; padding-left: 0 !important; }
 img { max-width: 100%; height: auto; }
+/* ── Home button ── */
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  margin: 20px 0 8px;
+  background: #fff;
+  color: #2b6cb0 !important;
+  border: 1px solid #bee3f8;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: background .2s, box-shadow .2s;
+}
+.home-btn:hover {
+  background: #ebf8ff !important;
+  box-shadow: 0 2px 8px rgba(66,153,225,.15);
+}
+
 /* ── Code block fix ── */
 pre {
   background: #f6f8fa !important;
@@ -98,7 +120,11 @@ tr:nth-child(even) { background: #fafafa !important; }
 .article-info, .article-info span { color: #888 !important; }
 .article-title { color: #1a1a1a !important; }
 </style>
-</head><body><div id="app"><div data-v-87ffcada="" class="article"><!----> <div data-v-87ffcada="" class="main main-app" style="margin-top: 0px;"><!----> <h1 data-v-87ffcada="" class="article-title">
+</head><body><div id="app"><div data-v-87ffcada="" class="article"><!----> <div data-v-87ffcada="" class="main main-app" style="margin-top: 0px;"><!----> <a class="home-btn" href="../index.html">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+  返回首页
+</a>
+<h1 data-v-87ffcada="" class="article-title">
         04 | 预习篇 · 小鲸鱼大事记（四）：尘埃落定
       </h1> <div data-v-87ffcada="" class="article-info"><span data-v-87ffcada="">2025-08-31</span> </div> <div data-v-87ffcada="" class="article-content typo common-content"><img data-v-87ffcada="" src="images/a6f0a2122fbf352e78b0a193aa21531c.jpg"> <!----> <audio src="https://res001.geekbang.org/resource/audio/b8/27/b8927beb8546622cc5caa14767de2a27.mp3" controls style="width:100%;margin:1rem 0;"></audio> <div data-v-87ffcada="" id="article-content" class=""><div class="text"><p>你好，我是张磊。我今天分享的主题是：小鲸鱼大事记之尘埃落定。</p>
 <p>在上一次的分享中我提到，伴随着 Docker 公司一手打造出来的容器技术生态在云计算市场中站稳了脚跟，围绕着 Docker 项目进行的各个层次的集成与创新产品，也如雨后春笋般出现在这个新兴市场当中。而 Docker 公司，不失时机地发布了 Docker Compose、Swarm 和 Machine“三件套”，在重新定义 PaaS 的方向上走出了最关键的一步。</p>
